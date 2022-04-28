@@ -4,7 +4,7 @@ This folder will group all the ressources needed to replicate the attacks perfor
 
 <img src="./images/logo-ecl-rectangle-quadri-print.jpg" width="400"><img src="./images/logoradboud.png" width=400>
 
-The preliminary report written to introduce the subject to my supervisers at ECL can be found [here](Preliminary_report.pdf)
+The preliminary report written to introduce the subject to my supervisors at ECL can be found [here](Preliminary_report.pdf)
 
 The main focus of this thesis is to recover hyperparameters and weights of a Neural Network implemented on a Xilinx zcu104 through Side Channel Attacks.
 
