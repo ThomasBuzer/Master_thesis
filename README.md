@@ -19,4 +19,11 @@ Vitis AI has the ability to run any Network which has been developped with [Pyto
 ### GPIO Trigger
 
 The prebuild image burned on the SD card does not allow easy access to the GPIO pins. To enable this, the whole image has to be rebuild with [This](https://github.com/Xilinx/Vitis-Tutorials/tree/2021.2/Vitis_Platform_Creation/Introduction/02-Edge-AI-ZCU104) tutorial guiding through the steps. [This](https://www.youtube.com/watch?v=CHsidFIXUEE) youtube video helps understanding the steps to add GPIO pins.
+
+During the build of the Vitis project (step 4-4) you might encounter these problems:
+- opencv2 not found : you have to install [opencv](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html) C++ library on the host system and provide it to the Vitis environement (explanation [here](https://support.xilinx.com/s/question/0D52E00006hpPCUSA2/vitis-vision-libraries-error-on-build?language=en_US)). The default installation path for opencv2 is **/usr/local/include/opencv4** .
+- 
+
+
+
 WIP
