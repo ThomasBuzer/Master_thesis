@@ -24,7 +24,7 @@ The prebuild image burned on the SD card does not allow easy access to the GPIO 
 
 The idea of the setup is to modify the base image given by Xilinx to enable the LEDs (easier than the PMOD gpios). First download this [image](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-platforms/2021-2.html). In the **hw** folder will be the **hw.xsa** file which can be opened with vitis through the **open_hw_platform** in the TCL console. 
 
-Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI 
+Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI Interconnect "interconnect_axihpm0fdp"
 
 
 ## ERRORS you might encounter
