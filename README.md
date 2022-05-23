@@ -22,6 +22,8 @@ The prebuild image burned on the SD card does not allow easy access to the GPIO 
 
 Using an earlier version of the Vitis environment (prior to 2022.1), you **WILL** have to apply this [patch](https://support.xilinx.com/s/article/76960?language=en_US) for the IP checker to work properly. 
 
+step 2 : you might want to build the petalinux software offline. [This](https://support.xilinx.com/s/article/2021-1-PetaLinux?language=en_US) post guides you through the process.
+
 During the build of the Vitis project (step 4-4) you might encounter these problems:
 - **source file does not exist** : [this](https://support.xilinx.com/s/question/0D52E00006hpRgHSAU/vitis-ide-error-v-60602-source-file-does-not-exist?language=en_US) post should fix it by changing the path to the default boards.
 - opencv2 not found : you have to install [opencv](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html) C++ library on the host system and provide it to the Vitis environement (explanation [here](https://support.xilinx.com/s/question/0D52E00006hpPCUSA2/vitis-vision-libraries-error-on-build?language=en_US)). The default installation path for opencv2 is **/usr/local/include/opencv4** .
