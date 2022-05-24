@@ -57,3 +57,9 @@ And to disable it :
 ```sh
 echo 511 > /sys/class/gpio/unexport
 ```
+
+## Benchmark
+
+Using a picoscope, Rise time and max frequency of the trigger was measured at **18ns** and **** respectivelly.
+
+<img src="./images/raise_time_with_led.png" width="400"><img src="./images/max_freq_with_led.png" width=400>
