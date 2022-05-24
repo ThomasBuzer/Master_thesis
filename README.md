@@ -31,9 +31,13 @@ This block diagram should appear :
 <img src="./images/block_diagram_modified.jpg" width="900">
 
 
-Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI Interconnect "interconnect_axihpm0fdp"
+2. Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI Interconnect "interconnect_axihpm0fdp" (in red on the previous picture).
+To link the signals to the physical pins of the FPGA, the following **constrain.xdc** file must be created. This file can be found [here](./platform_files/constrain.xdc).
 
 Before exporting the platform, you have to remove any file which would be produced into the "Utility Sources".
+
+3. Exporting the platform will produce the [zcu104_custom.xsa](./platform_files/zcu104_custom_2.xsa) file.
+
 
 #### ERRORS you might encounter
 
