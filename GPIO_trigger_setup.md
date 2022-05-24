@@ -37,7 +37,7 @@ Using an earlier version of the Vitis environment (prior to 2022.1), you **WILL*
 
 The use of the GPIOs under embedded linux environment is  explained in [this](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18842398/Linux+GPIO+Driver) tutorial.
 
-The GPIO used for the trigger is the 4th LED which corresponds to the GPIO511 file. To enable the pin run these commands on the board :
+The GPIO used for the trigger is the 4th LED (DS40) which corresponds to the GPIO511 file. To enable the pin run these commands on the board :
 ```sh
 echo 511 > /sys/class/gpio/export
 echo out > /sys/class/gpio/gpio511/direction
@@ -57,6 +57,14 @@ And to disable it :
 ```sh
 echo 511 > /sys/class/gpio/unexport
 ```
+
+After inspection of the electrical diagramm of the evaluation board, a tiny wire was soldered to the anode of the DS40 LED in order to access the trigger signal.
+
+<div align="center">
+<img src="./images/LED_schematic.jpg" width="500">
+<h4>Electrical diagram from the UG1267 documentation</h4>
+</div>
+
 
 ## Benchmark
 
