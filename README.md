@@ -20,14 +20,14 @@ Vitis AI has the ability to run any Network which has been developped with [Pyto
 
 The prebuild image burned on the SD card does not allow easy access to the GPIO pins. To enable this, the whole image has to be rebuild with [This](https://github.com/Xilinx/Vitis-Tutorials/tree/2021.2/Vitis_Platform_Creation/Introduction/02-Edge-AI-ZCU104) tutorial guiding through the steps. [This](https://www.youtube.com/watch?v=CHsidFIXUEE) youtube video helps understanding the steps to add GPIO pins.
 
-## Design Flow
+#### Design Flow
 
 The idea of the setup is to modify the base image given by Xilinx to enable the LEDs (easier than the PMOD gpios). First download this [image](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/embedded-platforms/2021-2.html). In the **hw** folder will be the **hw.xsa** file which can be opened with vitis through the **open_hw_platform** in the TCL console. 
 
 Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI Interconnect "interconnect_axihpm0fdp"
 
 
-## ERRORS you might encounter
+#### ERRORS you might encounter
 
 Using an earlier version of the Vitis environment (prior to 2022.1), you **WILL** have to apply this [patch](https://support.xilinx.com/s/article/76960?language=en_US) for the IP checker to work properly. 
 
