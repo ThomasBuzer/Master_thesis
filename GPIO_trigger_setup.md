@@ -62,4 +62,4 @@ echo 511 > /sys/class/gpio/unexport
 
 Using a picoscope, Rise time and max frequency of the trigger was measured at **18 ns** and **5.8 kHz** respectivelly.
 
-<img src="./images/raise_time_with_led.png" width="600"><img src="./images/max_freq_with_led.png" width=600>
+<img src="./images/raise_time_with_led.png" width="500"><img src="./images/max_freq_with_led.png" width=500>
