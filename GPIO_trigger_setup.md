@@ -12,8 +12,9 @@ The idea of the setup is to modify the base image given by Xilinx to enable the 
 
 This block diagram should appear :
 
+<div align="center">
 <img src="./images/block_diagram_modified.jpg" width="900">
-
+</div>
 
 2. Adding the LEDs is as simple as adding a AXI_GPIO and connecting it to the AXI Interconnect "interconnect_axihpm0fdp" (in red on the previous picture).
 To link the signals to the physical pins of the FPGA, the following **constrain.xdc** file must be created. This file can be found in the [platform_files](./platform_files) folder.
@@ -70,4 +71,6 @@ After inspection of the electrical diagramm of the evaluation board, a tiny wire
 
 Using a picoscope, Rise time and max frequency of the trigger was measured at **18 ns** and **5.8 kHz** respectivelly.
 
+<div align="center">
 <img src="./images/raise_time_with_led.png" width="500"><img src="./images/max_freq_with_led.png" width=500>
+</div>
