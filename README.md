@@ -59,3 +59,42 @@ To confirm that the patterns oberved on the Scope of the 5 layer CNN, a 4-layer,
 <div align="center">
 <img src="./images/30_05/MNIST_3L_superposed.jpg" width="500"><img src="./images/30_05/MNIST_4L_superposed.jpg" width="500"><img src="./images/30_05/MNIST_5L_superposed.jpg" width="500">
 </div>
+
+Here are the Pytorch architectures of the 3 CNNs :
+```
+## Layer 1
+nn.Conv2d(1,16, kernel_size=5, stride=2, padding=1)
+nn.BatchNorm2d(16)
+nn.ReLU(inplace=True)
+
+## Layer 2
+nn.Conv2d(16,32, kernel_size=5, stride=2, padding=1)
+nn.BatchNorm2d(32)
+nn.ReLU(inplace=True)
+
+##Only for the 3_layer
+nn.Conv2d(32,10, kernel_size=3, stride=3, padding=1)
+
+## Only for the 4_Layer 
+nn.Conv2d(32, 64, kernel_size=3, stride=2, padding=1)
+nn.BatchNorm2d(64)
+nn.ReLU(inplace=True)
+nn.Conv2d(64, 10, kernel_size=3, stride=3, padding=1)
+
+## Only for the 5_Layer
+nn.Conv2d(32, 64, kernel_size=3, stride=2, padding=1)
+nn.BatchNorm2d(64)
+nn.ReLU(inplace=True)
+nn.Conv2d(64, 90, kernel_size=3, stride=1, padding=1)
+nn.BatchNorm2d(90)
+nn.ReLU(inplace=True)
+nn.Conv2d(90, 10, kernel_size=3, stride=3, padding=1)
+
+
+nn.BatchNorm2d(10)
+nn.Flatten
+```
+
+Considering the capabilities of the DPU unit which are shown on the Table of the [Vitis AI Doc](https://docs.xilinx.com/r/en-US/pg338-dpu/Architecture-of-the-DPUCZDX8G). The DPU unit can paralalize 16 channels on inputs and outputs. This means that the 3-layer CNN has 5 Convollution layers to compute : 1rst one is fully parallel, second and third one are executed in 2 batches.
+
+Here is a guess at what the signals may be given that Relu layer does not appear (too fast) 
