@@ -127,3 +127,19 @@ The **32** values have been tested for 16, 32 and 64 channels in order to see th
 
 The difference is clearly visible and can be explained by the parallelisation. The smallest network (16) has just enough channel for the DPU unit to do it all at once when the **32** and **64** need multiple iterations: 2 and 4 respectivelly.
 
+### Number of operation / layer
+
+The execution time of each layer should be linked to the number of operation done during this layer. If *p_in* and *p_out* are the pixel size of the input and output square images, *k* is the kernel size, *c_in* and *c_out* the number of input/output channels, *s* is the stride and *p* the padding of the convolution layer. The input and output size image are linked :
+*p_out* = (*p_in* - *k* + 2 * *p*) / *s*
+
+The number of operations can be expressed as follows : *n_ops* = *p_out*² * *k*² * *c_out* * *c_in*
+And the time of execution : *t* = *n_ops* / *clk* / *parallelisation*
+with *clk* being the clock of the DPU unit and *parallelisation* the number of operations/clk cycle 
+
+The following graphs show the theoretical and measured execution time of different layers with different *p_out* for two different *k* and with different ranges.
+
+<div align="center">
+<img src="./images/09_06/graph_timing_k3.jpg" width="300"><img src="./images/09_06/graph_timing_k5.jpg" width="500">
+</div>
+
+Even though the results do not fit perfectly, there is a clear link between output size and execution time. Further tests show that these results degrade when the output size becomes really small (<28).
