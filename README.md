@@ -97,4 +97,33 @@ nn.Flatten
 
 Considering the capabilities of the DPU unit which are shown on the Table of the [Vitis AI Doc](https://docs.xilinx.com/r/en-US/pg338-dpu/Architecture-of-the-DPUCZDX8G). The DPU unit can paralalize 16 channels on inputs and outputs. This means that the 3-layer CNN has 5 Convollution layers to compute : 1rst one is fully parallel, second and third one are executed in 2 batches.
 
-Here is a guess at what the signals may be given that Relu layer does not appear (too fast) 
+Convolution Layers appera to be distributed in different peaks. The blue peaks at the beginning of the traces are due to misalignement of the traces due to bad trigger tuning.
+
+In order to understand the different peaks, many networks have been implemented and their traces have been recorded. The following architecture has been used : 
+
+```
+## Layer 1
+nn.Conv2d(1,16, kernel_size=5, stride=2, padding=1)
+nn.BatchNorm2d(16)
+nn.ReLU(inplace=True)
+
+## Layer 2
+nn.Conv2d(16,**32**, kernel_size=5, stride=2, padding=1)
+nn.BatchNorm2d(**32**)
+nn.ReLU(inplace=True)
+
+## Layer 3
+nn.Conv2d(**32**,10, kernel_size=3, stride=3, padding=1)
+
+nn.BatchNorm2d(10)
+nn.Flatten
+```
+
+The **32** values have been tested for 16, 32 and 64 channels in order to see the impact of the number of channels on the EM traces. The three following images show the results.
+
+<div align="center">
+<img src="./images/31_05/MNIST_3L_Small_1.jpg" width="400"><img src="./images/31_05/MNIST_3L_1.jpg" width="400"><img src="./images/31_05/MNIST_3L_Big_1.jpg" width="400">
+</div>
+
+The difference is clearly visible and can be explained by the parallelisation. The smallest network (16) has just enough channel for the DPU unit to do it all at once when the **32** and **64** need multiple iterations: 2 and 4 respectivelly.
+
