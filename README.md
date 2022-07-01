@@ -163,7 +163,7 @@ To determine whether or not all hyperparameters are independent or not, a datase
 *c_out* = [8, 10, 12, 14, 16] \
 *k* = [3, 5] \
 *s* = [1, 2, 3] \
-*p* = 0 \
+*p* = 0 
 
 Which gives 29 networks (1_16_5_3_0 is missing for some reason). 3,500 traces have been recorded for each one of them (101,500 traces) with 500,000  points for each trace (10^8 S/s). The traces are not alligned and the recording time has been determined on the largest network (1_16_5_1_0). 
 
