@@ -143,3 +143,15 @@ The following graphs show the theoretical and measured execution time of differe
 </div>
 
 Even though the results do not fit perfectly, there is a clear link between output size and execution time. Further tests show that these results degrade when the output size becomes really small (<28).
+
+### Neural Network to reverse engineer
+
+The use of machine learning in SCA has been increasing with the popularity and knowledge around it. Several Neural Networks have been implemented to try and recover the different parameters of the application running on the FPGA. 
+
+#### Size of layer
+
+The first one implemented is based on the network used to link the execution time and the number of operations. Using a kernel size of 5 and because the amount of parallelisation is constant, the network can be based on the output feature size. Using a python script to convert the TRS files into a bunch of *peaks.csv* files, training and testing sets are created containing 80 and 20% of the data. In order to deal with the varying length of the input (because the peaks are different length, 0-padding is added at the end of the traces to make them fixed length.
+
+The network is 1 convolution layer followed by 2 FC layers. After a few epochs, the network is able to classify the inputs into 10 classes traces with close to 100% accuracy. This task is quite easy as the previous graph has shown that execution time is strongly linked to number of operations (ie feature size) and the different classes don't overlap at all. 
+
+A discussion could be opened about the padding. It might be that the network only base its output on the length of the 0 padding.
