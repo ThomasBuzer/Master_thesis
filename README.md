@@ -155,3 +155,16 @@ The first one implemented is based on the network used to link the execution tim
 The network is 1 convolution layer followed by 2 FC layers. After a few epochs, the network is able to classify the inputs into 10 classes traces with close to 100% accuracy. This task is quite easy as the previous graph has shown that execution time is strongly linked to number of operations (ie feature size) and the different classes don't overlap at all. 
 
 A discussion could be opened about the padding. It might be that the network only base its output on the length of the 0 padding.
+
+### Layer hyperparameters
+
+To determine whether or not all hyperparameters are independent or not, a dataset has been created with only one layer using all the combionation of these parameters :\
+*c_in* = 1 \
+*c_out* = [8, 10, 12, 14, 16] \
+*k* = [3, 5] \
+*s* = [1, 2, 3] \
+*p* = 0 \
+
+Which gives 29 networks (1_16_5_3_0 is missing for some reason). 3,500 traces have been recorded for each one of them (101,500 traces) with 500,000  points for each trace (10^8 S/s). The traces are not alligned and the recording time has been determined on the largest network (1_16_5_1_0). 
+
+This dataset is now used to try and identify hyperparameters directly from the trace.
