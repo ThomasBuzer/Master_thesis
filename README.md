@@ -40,10 +40,11 @@ The collect_pico.py programm outputs a TRS file which contains all the traces. S
 
 
 ## Vitis-AI/Simple_CNNs
-Most commands cited here must be run in the Vitis-AI environment 
+Most commands cited here must be run in the Vitis-AI environment. Use the following commands inside the Viti-AI folder to enter it.
 
 ```sh
 ./docker_run.sh xilinx/vitis-ai-cpu:latest
+conda activate vitis-ai-pytorch
 ```
 
 The folders inside Simple_CNNs corresponds to different kind of architectures that have been tested. All the folders have the same basic principle which corresponds to the example given by Xilinx to implement the MNIST example through pytorch. This example has been modified so that the network is not trained to save time. They contain all the scripts required to build and compile .xmodel files. 
@@ -54,6 +55,18 @@ The builder.sh script has been create to automatically create the model with pyt
 
 ### list
 
-The list folder allows to build and compile multiple architectures in one go. The architecture are single convolution layers which parameters are stored in a csv file inside the folder. all the models can the be built with the multi_builder.sh script which
+The list folder allows to build and compile multiple architectures in one go. The architecture are single convolution layers which parameters are stored in a csv file inside the folder. all the models can the be built with the multi_builder.sh script which compiles all the architectures and store them in the build/compiled_model folder.
+
+### singleC
+
+This folder contains tools to generate a lot of networks to assess single weight leakage.
+To save time, it has been decided not to quantize random models because it takes too much time. The randomness is added by modifying the binary quantized model. This means that the creation of a model takes less than one second which is really efficient.
+
+The generator.py script compiles these models based on an original network which have been quantized. The weights of the model have been identified in the file with a hex compare software. The generator then replaces the weights with random or fixed weights depending on the application.
+
+The file_handler.py script is mandatory to deal with the transfer of the xmodels to the ZCU104 board.
+
+The idea is to launch both the generator.py and file_handler.py to handle models creation and transfer while the collect_pico_weights.py collects the traces.
+
 
 
