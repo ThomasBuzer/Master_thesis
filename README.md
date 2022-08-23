@@ -69,4 +69,25 @@ The file_handler.py script is mandatory to deal with the transfer of the xmodels
 The idea is to launch both the generator.py and file_handler.py to handle models creation and transfer while the collect_pico_weights.py collects the traces.
 
 
+## pico
+
+This folder contains some tools to record and process traces.
+
+### collect_pico
+
+The collect_pico algorithms can record traces in TRS files. There are two different ones depending on the application :
+
+* **collect_pico.py** : use one architecture and collect traces on that
+* **collect_pico_weights.py** : use multiple architecture separated into two groups depending on a coin toss
+
+The collect_pico algorithm has three main inputs:
+* **-app** which is the name of the app running on the ZCU board
+* **-n_traces** which is the number of the traces recorded
+* **-model** which is th model used during the inference
+
+
+
+## NN_env
+
+
 
