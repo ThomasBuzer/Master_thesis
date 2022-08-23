@@ -85,6 +85,12 @@ The collect_pico algorithm has three main inputs:
 * **-n_traces** which is the number of the traces recorded
 * **-model** which is th model used during the inference
 
+multi_collect.sh is a script that allows to use collect_pico.py on a list of models with the same app.
+
+### timing_peaks
+
+
+
 
 
 ## NN_env
