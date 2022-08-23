@@ -42,9 +42,9 @@ The collect_pico.py programm outputs a TRS file which contains all the traces. S
 ## Vitis-AI/Simple_CNNs
 Most commands cited here must be run in the Vitis-AI environment 
 
-"""
+```sh
 ./docker_run.sh xilinx/vitis-ai-cpu:latest
-"""
+```
 
 The folders inside Simple_CNNs corresponds to different kind of architectures that have been tested. All the folders have the same basic principle which corresponds to the example given by Xilinx to implement the MNIST example through pytorch. This example has been modified so that the network is not trained to save time. They contain all the scripts required to build and compile .xmodel files. 
 
