@@ -42,12 +42,18 @@ The collect_pico.py programm outputs a TRS file which contains all the traces. S
 ## Vitis-AI/Simple_CNNs
 Most commands cited here must be run in the Vitis-AI environment 
 
+"""
 ./docker_run.sh xilinx/vitis-ai-cpu:latest
+"""
 
-The folders inside Simple_CNNs corresponds to different kind of architectures that have been tested. All the folders have the same basic principle which corresponds to the example given by Xilinx to implement the MNIST example through pytorch. They contain all the scripts required to build and compile .xmodel files. 
+The folders inside Simple_CNNs corresponds to different kind of architectures that have been tested. All the folders have the same basic principle which corresponds to the example given by Xilinx to implement the MNIST example through pytorch. This example has been modified so that the network is not trained to save time. They contain all the scripts required to build and compile .xmodel files. 
+
+The architecture of the network implemented is stored in the common.py file of each folder.
 
 The builder.sh script has been create to automatically create the model with pytorch, quantize it and compile it with the Vitis-AI environment.
 
-### 
+### list
+
+The list folder allows to build and compile multiple architectures in one go. The architecture are single convolution layers which parameters are stored in a csv file inside the folder. all the models can the be built with the multi_builder.sh script which
 
 
