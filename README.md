@@ -95,5 +95,30 @@ multi_collect.sh is a script that allows to use collect_pico.py on a list of mod
 
 ## NN_env
 
+### layers
+
+This env contains all the files and script required to train and test Deep Neural Network recognition of the layers. the traces are contained in the x_train.npy and x_test.npy files. The separation between train and test data has been made randomly with a 80/20 repartition. 
+
+#### train
+
+The training is done through the train or trainREG scripts depending if the training should be done in a classification method or a regression one. 
+
+The train algorithm has these main inputs:
+
+* **-target** which hyperparameter is targeted (0 to 3)
+* **-epochs** 
+* **-batchsize**
+* **-model** if one wants to continue training on an existing model
+* **-learnrate**
+
+The shape of the network is stored in the commonRAM.py script inside the CNN class definition.
+
+#### test
+
+The test programm is mainly use to asses the performances of the networks on the validation set. It has some feature allowing to add noise or missalignment in the traces to try and improve the generalization of the network.
+
+#### utilities
+
+There are some utilities script that can be usefull for converting/viewing the traces in either NPY or TRS format.
 
 
