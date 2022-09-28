@@ -32,7 +32,7 @@ The setup is shown on the next Figure. It is described in more details in the th
 
 ## Recording traces
 
-In order to record traces, several algorithm must be implemented in order to synchronise the recordings. The following Figure shows the basic principle of the system. The master coordinator is the collect_pico.py programm running on the Mako computer. This programm is responsible for lanching the app.py (through ssh) which runs on the ZCU board and is responsible for the inference of the Neural Network. The inference only occurs when the picoscope is ready and the computer sends a signal to the ZCU board through a TCP message. 
+In order to record traces, several algorithm must be implemented in order to synchronise the collection. The following Figure shows the basic principle of the system. The master coordinator is the collect_pico.py programm running on the Mako computer. This programm is responsible for lanching one of the app.py (through ssh) which runs on the ZCU board and is responsible for the inference of the Neural Network. The inference only occurs when the picoscope is ready and the computer sends a signal to the ZCU board through a TCP message. 
 The collect_pico.py programm outputs a TRS file which contains all the traces. Several algorithms have been implemented to convert and process these traces.
 
 <div align="center">
