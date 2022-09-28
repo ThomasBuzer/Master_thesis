@@ -60,6 +60,9 @@ The builder.sh script has been create to automatically create the model with pyt
 ### list
 
 The list folder allows to build and compile multiple architectures in one go. The architecture are single convolution layers which parameters are stored in a csv file inside the folder. all the models can the be built with the multi_builder.sh script which compiles all the architectures and store them in the build/compiled_model folder.
+```sh
+./multi_builder.sh -l 
+```
 
 ### singleC
 
