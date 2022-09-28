@@ -40,6 +40,7 @@ The collect_pico.py programm outputs a TRS file which contains all the traces. S
 </div>
 
 
+
 ## Vitis-AI/Simple_CNNs
 Most commands cited here must be run in the Vitis-AI environment. Use the following commands inside the Viti-AI folder to enter it.
 
@@ -94,17 +95,29 @@ The collect_pico algorithm has three main inputs:
 
 multi_collect.sh is a script that allows to use collect_pico.py on a list of models with the same app.
 
-### timing_peaks
+The command to launch the collection of traces is the following:
+```sh
+python collect_pico.py --app name_of_the_zcu104_app --n_traces self_explainatory --model name_of_xmodel_file
+```
 
+Be carefull : the input size of the model file must match the image size in the app.
 
-
-
+The multi_collect.sh script launches the collect_pico.py script for a list of models stored in a .csv file which must be given as an argument
+```sh
+./muti_collect.sh -l list_of_networks.csv
+```
 
 ## NN_env
+
+All the folders in here are based on the same architecture which is described in the "layers" one.
 
 ### layers
 
 This env contains all the files and script required to train and test Deep Neural Network recognition of the layers. the traces are contained in the x_train.npy and x_test.npy files. The separation between train and test data has been made randomly with a 80/20 repartition. 
+
+####
+labels are stored in the y_...npy files and contain the hyperparmeters of the convolution layers:
+y_test.npy = [n_in, n_out, kernel_size, stride, padding = 0]
 
 #### train
 
@@ -112,11 +125,20 @@ The training is done through the train or trainREG scripts depending if the trai
 
 The train algorithm has these main inputs:
 
-* **-target** which hyperparameter is targeted (0 to 3)
-* **-epochs** 
-* **-batchsize**
-* **-model** if one wants to continue training on an existing model
-* **-learnrate**
+* **--target** which hyperparameter is targeted (0 to 3)
+* **--epochs** 
+* **--batchsize**
+* **--model** if one wants to continue training on an existing model
+* **--learnrate**
+
+command to launch training on the target 1 for 30 epochs
+```sh
+python train.py -e 30 -t 1
+```
+command to continue training on the target 1 for 10 epochs with different learning rate
+```sh
+python train.py -e 30 -m f_model_target_1.pth -t 1 -lr 0.003
+```
 
 The shape of the network is stored in the commonRAM.py script inside the CNN class definition.
 
@@ -124,8 +146,23 @@ The shape of the network is stored in the commonRAM.py script inside the CNN cla
 
 The test programm is mainly use to asses the performances of the networks on the validation set. It has some feature allowing to add noise or missalignment in the traces to try and improve the generalization of the network.
 
+command to test a model on the fisrt target.
+```sh
+python testRAM.py -m f_model_target_1.pth -t 1
+```
+
 #### utilities
 
 There are some utilities script that can be usefull for converting/viewing the traces in either NPY or TRS format.
 
+### weights_1byte
 
+contains the traces and labels for single weight attack on the most significant byte of the weight.
+
+The label contains the value of the weights mapped from (-32768;32512) to (0;255). 
+
+
+### weights_2byte
+
+contains the traces and labels for single weight attack on the least significant byte of the weight.
+basically a copy of the previous one with different data. The labels are directly the value of the weights.
