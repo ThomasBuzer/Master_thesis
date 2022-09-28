@@ -7,6 +7,7 @@ This folder will group all the ressources needed to replicate the attacks perfor
 </div>
 
 The preliminary report written to introduce the subject to my supervisors at ECL can be found [here](Preliminary_report.pdf)
+The full thesis can be found in the [thesis](thesis) folder.
 
 The main focus of this thesis is to recover hyperparameters and weights of a Neural Network implemented on a Xilinx zcu104 through Side Channel Attacks.
 
