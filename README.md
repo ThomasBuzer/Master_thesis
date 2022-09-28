@@ -52,7 +52,10 @@ The folders inside Simple_CNNs corresponds to different kind of architectures th
 
 The architecture of the network implemented is stored in the common.py file of each folder.
 
-The builder.sh script has been create to automatically create the model with pytorch, quantize it and compile it with the Vitis-AI environment.
+The builder.sh script has been create to automatically create the model with pytorch, quantize it and compile it with the Vitis-AI environment. It takes as an argument the folder containing the network to be compiled.
+```sh
+./builder.sh -f 3_layers
+```
 
 ### list
 
