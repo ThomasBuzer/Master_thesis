@@ -166,3 +166,8 @@ The label contains the value of the weights mapped from (-32768;32512) to (0;255
 
 contains the traces and labels for single weight attack on the least significant byte of the weight.
 basically a copy of the previous one with different data. The labels are directly the value of the weights.
+
+## On The ZCU104 board
+
+on the board can be found both the applications that run the DPU and the .xmodel files. All of these are stored  in the target_zcu104 folder. 
+In the same folder are stored **the trigger_up.sh** and **trigger_down.sh** scripts which control the trigger signal. All these applications can be found in the [zcu104](zcu104) folder.
