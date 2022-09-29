@@ -17,7 +17,7 @@ The main focus of this thesis is to recover hyperparameters and weights of a Neu
 
 The embedded CPU will run PetaLinux as RTOS or Bare Metal are not available for the Deep Processing Unit (DPU) IP on this board yet.
 
-Vitis AI has the ability to run any Network which has been developped with [Pytorch](https://github.com/Xilinx/Vitis-AI-Tutorials/tree/master/Design_Tutorials/09-mnist_pyt), Tensorflow or Caffe. Once converted and implemented on the board, [Vitis AI Runtime](https://github.com/Xilinx/Vitis-AI/tree/master/demo/VART) allows the user to controll the execution via python or C++ API.
+Vitis AI has the ability to run any Network which has been developped with [Pytorch](https://github.com/Xilinx/Vitis-AI-Tutorials/blob/1.4/Design_Tutorials/09-mnist_pyt/README.md), Tensorflow or Caffe. Once converted and implemented on the board, [Vitis AI Runtime](https://github.com/Xilinx/Vitis-AI/tree/master/demo/VART) allows the user to controll the execution via python or C++ API.
 
 The image given by Xilinx for the evaluation board does not allow GPIOs access. To enable them, a new image must be build. [GPIO_trigger_setup](./GPIO_trigger_setup.md) will guide you through the process of building the image and explain how to use the GPIOs as a trigger. The modified image allowing DPU use and GPIOs access can be found in the [platform_files](./platform_files) folder
 
@@ -32,12 +32,13 @@ The setup is shown on the next Figure. It is described in more details in the th
 
 ## Recording traces
 
-In order to record traces, several algorithm must be implemented in order to synchronise the recordings. The following Figure shows the basic principle of the system. The master coordinator is the collect_pico.py programm running on the Mako computer. This programm is responsible for lanching the app.py (through ssh) which runs on the ZCU board and is responsible for the inference of the Neural Network. The inference only occurs when the picoscope is ready and the computer sends a signal to the ZCU board through a TCP message. 
+In order to record traces, several algorithm must be implemented in order to synchronise the collection. The following Figure shows the basic principle of the system. The master coordinator is the collect_pico.py programm running on the Mako computer. This programm is responsible for lanching one of the app.py (through ssh) which runs on the ZCU board and is responsible for the inference of the Neural Network. The inference only occurs when the picoscope is ready and the computer sends a signal to the ZCU board through a TCP message. 
 The collect_pico.py programm outputs a TRS file which contains all the traces. Several algorithms have been implemented to convert and process these traces.
 
 <div align="center">
 <img src="./images/overleaf/setup/collect_traces.jpg" width="400">
 </div>
+
 
 
 ## Vitis-AI/Simple_CNNs
@@ -52,11 +53,17 @@ The folders inside Simple_CNNs corresponds to different kind of architectures th
 
 The architecture of the network implemented is stored in the common.py file of each folder.
 
-The builder.sh script has been create to automatically create the model with pytorch, quantize it and compile it with the Vitis-AI environment.
+The builder.sh script has been create to automatically create the model with pytorch, quantize it and compile it with the Vitis-AI environment. It takes as an argument the folder containing the network to be compiled.
+```sh
+./builder.sh -f 3_layers
+```
 
 ### list
 
 The list folder allows to build and compile multiple architectures in one go. The architecture are single convolution layers which parameters are stored in a csv file inside the folder. all the models can the be built with the multi_builder.sh script which compiles all the architectures and store them in the build/compiled_model folder.
+```sh
+./multi_builder.sh -l 
+```
 
 ### singleC
 
@@ -88,17 +95,29 @@ The collect_pico algorithm has three main inputs:
 
 multi_collect.sh is a script that allows to use collect_pico.py on a list of models with the same app.
 
-### timing_peaks
+The command to launch the collection of traces is the following:
+```sh
+python collect_pico.py --app name_of_the_zcu104_app --n_traces self_explainatory --model name_of_xmodel_file
+```
 
+Be carefull : the input size of the model file must match the image size in the app.
 
-
-
+The multi_collect.sh script launches the collect_pico.py script for a list of models stored in a .csv file which must be given as an argument
+```sh
+./muti_collect.sh -l list_of_networks.csv
+```
 
 ## NN_env
+
+All the folders in here are based on the same architecture which is described in the "layers" one.
 
 ### layers
 
 This env contains all the files and script required to train and test Deep Neural Network recognition of the layers. the traces are contained in the x_train.npy and x_test.npy files. The separation between train and test data has been made randomly with a 80/20 repartition. 
+
+####
+labels are stored in the y_...npy files and contain the hyperparmeters of the convolution layers:
+y_test.npy = [n_in, n_out, kernel_size, stride, padding = 0]
 
 #### train
 
@@ -106,11 +125,20 @@ The training is done through the train or trainREG scripts depending if the trai
 
 The train algorithm has these main inputs:
 
-* **-target** which hyperparameter is targeted (0 to 3)
-* **-epochs** 
-* **-batchsize**
-* **-model** if one wants to continue training on an existing model
-* **-learnrate**
+* **--target** which hyperparameter is targeted (0 to 3)
+* **--epochs** 
+* **--batchsize**
+* **--model** if one wants to continue training on an existing model
+* **--learnrate**
+
+command to launch training on the target 1 for 30 epochs
+```sh
+python train.py -e 30 -t 1
+```
+command to continue training on the target 1 for 10 epochs with different learning rate
+```sh
+python train.py -e 30 -m f_model_target_1.pth -t 1 -lr 0.003
+```
 
 The shape of the network is stored in the commonRAM.py script inside the CNN class definition.
 
@@ -118,8 +146,28 @@ The shape of the network is stored in the commonRAM.py script inside the CNN cla
 
 The test programm is mainly use to asses the performances of the networks on the validation set. It has some feature allowing to add noise or missalignment in the traces to try and improve the generalization of the network.
 
+command to test a model on the fisrt target.
+```sh
+python testRAM.py -m f_model_target_1.pth -t 1
+```
+
 #### utilities
 
 There are some utilities script that can be usefull for converting/viewing the traces in either NPY or TRS format.
 
+### weights_1byte
 
+contains the traces and labels for single weight attack on the most significant byte of the weight.
+
+The label contains the value of the weights mapped from (-32768;32512) to (0;255). 
+
+
+### weights_2byte
+
+contains the traces and labels for single weight attack on the least significant byte of the weight.
+basically a copy of the previous one with different data. The labels are directly the value of the weights.
+
+## On The ZCU104 board
+
+on the board can be found both the applications that run the DPU and the .xmodel files. All of these are stored  in the target_zcu104 folder. 
+In the same folder are stored **the trigger_up.sh** and **trigger_down.sh** scripts which control the trigger signal. All these applications can be found in the [zcu104](zcu104) folder.
