@@ -110,6 +110,8 @@ The multi_collect.sh script launches the collect_pico.py script for a list of mo
 ## NN_env
 
 All the folders in here are based on the same architecture which is described in the "layers" one.
+The main scripts can be found in the [NN_env](NN_env) folder here and with them comes the trained network (the best ones available).
+The datasets are too big to fit here so they are kept only on mako.
 
 ### layers
 
