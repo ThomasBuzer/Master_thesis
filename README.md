@@ -102,7 +102,7 @@ python collect_pico.py --app name_of_the_zcu104_app --n_traces self_explainatory
 
 Be carefull : the input size of the model file must match the image size in the app.
 
-The multi_collect.sh script launches the collect_pico.py script for a list of models stored in a .csv file which must be given as an argument
+The multi_collect.sh script launches the collect_pico.py script for a list of models stored in a .csv file which must be given as an argument. Be carefull, the multi_collect script must be changed with the app used and the number of traces.
 ```sh
 ./muti_collect.sh -l list_of_networks.csv
 ```
