@@ -171,3 +171,5 @@ basically a copy of the previous one with different data. The labels are directl
 
 on the board can be found both the applications that run the DPU and the .xmodel files. All of these are stored  in the target_zcu104 folder. 
 In the same folder are stored **the trigger_up.sh** and **trigger_down.sh** scripts which control the trigger signal. All these applications can be found in the [zcu104](zcu104) folder.
+
+The weights folder contains models of a single 400 weights convolution layer with one of them (the first one) ranging from -32768 to 32767. They are used for assessing single weight leakage and recognition.
